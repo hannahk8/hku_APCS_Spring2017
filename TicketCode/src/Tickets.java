@@ -1,24 +1,11 @@
 abstract class Tickets {
 	private int number;
-	private int price;
+	private double price;
 	public Tickets(int num){
 		this.number = num;
 	}
-	public int getPrice(){
-		return 0;
-	}
+	public abstract double getPrice();
 	public String toString(){
-		return "Number: " + this.number + "Price: " + this.price;
-	}
-}
-
-public class StudentAdvanceTicket extends AdvanceTicket{
-	public StudentAdvanceTicket(){}
-	public int getPrice(){
-		if(number >= 10){
-			return 15;
-		}else{
-			return 20;
-		}
+		return "Number: " + this.number;
 	}
 }

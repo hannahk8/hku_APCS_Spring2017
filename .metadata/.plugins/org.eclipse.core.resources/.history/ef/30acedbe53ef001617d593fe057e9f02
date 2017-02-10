@@ -1,0 +1,11 @@
+abstract class Tickets {
+	private int number;
+	private int price = 10;
+	public Tickets(int num){
+		this.number = num;
+	}
+	public abstract int getPrice();
+	public String toString(){
+		return "Number: " + this.number + ", Price: " + this.price;
+	}
+}

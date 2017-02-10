@@ -1,13 +1,18 @@
 
 public class StudentAdvanceTickets extends AdvanceTicket {
+	private int numDaysBefore;
 	public StudentAdvanceTickets(int n, int days){
 		super(n, days);
+		n = numDaysBefore;
 	}
-	public int getPrice(){
-		if(number >= 10){
-			return 15;
+	public double getPrice(){
+		if(this.numDaysBefore >= 10){
+			return super.getPrice()/2;
 		}else{
-			return 20;
+			return super.getPrice()/2;
 		}
+	}
+	public String toString(){
+		return super.toString() + " (ID required)";
 	}
 }

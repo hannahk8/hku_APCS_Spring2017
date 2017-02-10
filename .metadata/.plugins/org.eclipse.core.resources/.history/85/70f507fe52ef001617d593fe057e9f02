@@ -1,0 +1,4 @@
+public class TicketsClientCode {
+	AdvanceTicket createticket = new AdvanceTicket(18, 10);
+	System.out.println(createticket);
+}

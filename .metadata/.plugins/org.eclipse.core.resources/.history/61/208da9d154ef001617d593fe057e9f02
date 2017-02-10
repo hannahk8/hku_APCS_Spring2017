@@ -1,0 +1,9 @@
+public class TicketsClientCode {
+	public static void main (String[]args){
+		AdvanceTicket ticket = new AdvanceTicket(18, 10);
+		System.out.println(ticket);
+		
+		StudentAdvanceTickets studentTicket = new StudentAdvanceTickets(9, 30);
+		System.out.println(studentTicket);
+	}
+}
