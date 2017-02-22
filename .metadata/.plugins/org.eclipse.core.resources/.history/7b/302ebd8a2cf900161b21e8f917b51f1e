@@ -1,0 +1,9 @@
+import java.io.*;
+import java.util.*;
+public class Wcode {
+	public static void main(String[]args) throws FileNotFoundException{
+		File f = new File("./resources/weather.txt");
+		Scanner input = new Scanner(f);
+		System.out.println(input.nextDouble());
+	}
+}
