@@ -10,6 +10,12 @@ public class TextExcel
 
 	public static void main(String[] args)
 	{
-	    // Add your command loop here
+		EmptyCell[][] cellArray = new EmptyCell[12][20];
+		Scanner input = new Scanner(System.in);
+		String userInput = input.nextLine();
+		while(userInput != "quit"){			
+			userInput = input.nextLine();
+			Spreadsheet.processCommand(userInput);	
+		}
 	}
 }
