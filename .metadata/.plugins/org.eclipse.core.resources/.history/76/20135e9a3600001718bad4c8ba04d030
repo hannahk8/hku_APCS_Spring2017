@@ -10,21 +10,22 @@ public class SpreadsheetLocation implements Location
     public int getRow()
     {
         // TODO Auto-generated method stub
-        return this.rowNum;
+        return rowNum;
     }
 
     @Override
     public int getCol()
     {
         // TODO Auto-generated method stub
-        return this.colNum;
+        return colNum;
     }
     
     public SpreadsheetLocation(String cellName)
     {
         // TODO: Fill this out with your own code
-    	this.colNum = cellName.charAt(0) - 'A';
-    	this.rowNum = Integer.parseInt(cellName.substring(1));
+    	int colNum = cellName.charAt(0);
+    	int intValue = Integer.parseInt(cellName);
+    	int rowNum = intValue - colNum;
     }
 
 }

@@ -4,14 +4,15 @@ import java.util.*;
 
 public class Spreadsheet implements Grid
 {
-	private Cell[][] cellArray;
+	private int numRows = 12;
+	private int numCols = 20;
 	public Spreadsheet(){
-		cellArray = new EmptyCell[20][12];
-		for(int i = 0; i < cellArray.length; i++){
-			for(int j = 0; j < cellArray[i].length; j++){
-				cellArray[i][j] = new EmptyCell();
-			}
+	Cell[][] cellArray = new EmptyCell[12][20];
+	for(int i = 0; i < cellArray.length; i++){
+		for(int j = 0; j < cellArray[i].length; j++){
+			cellArray[i][j] = new EmptyCell();
 		}
+	}
 	}
 	@Override
 	public String processCommand(String command)
@@ -24,14 +25,14 @@ public class Spreadsheet implements Grid
 	public int getRows()
 	{
 		// TODO Auto-generated method stub
-		return this.cellArray.length;
+		return this.numRows;
 	}
 
 	@Override
 	public int getCols()
 	{
 		// TODO Auto-generated method stub
-		return this.cellArray[0].length;
+		return this.numCols;
 	}
 
 	@Override

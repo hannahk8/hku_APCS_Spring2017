@@ -24,6 +24,7 @@ public class SpreadsheetLocation implements Location
     {
         // TODO: Fill this out with your own code
     	this.colNum = cellName.charAt(0) - 'A';
+    	
     	this.rowNum = Integer.parseInt(cellName.substring(1));
     }
 

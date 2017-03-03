@@ -3,6 +3,7 @@ package textExcel;
 public class EmptyCell implements Cell {
 	private String emptyValue = "";
 	public EmptyCell(){
+			
 	}
 
 	@Override

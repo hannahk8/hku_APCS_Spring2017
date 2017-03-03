@@ -6,9 +6,8 @@ public class Spreadsheet implements Grid
 {
 	private Cell[][] cellArray;
 	public Spreadsheet(){
-		cellArray = new EmptyCell[20][12];
-		for(int i = 0; i < cellArray.length; i++){
-			for(int j = 0; j < cellArray[i].length; j++){
+		for(int i = 0; i < 12; i++){
+			for(int j = 0; j < 20; j++){
 				cellArray[i][j] = new EmptyCell();
 			}
 		}

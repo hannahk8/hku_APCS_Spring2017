@@ -23,8 +23,9 @@ public class SpreadsheetLocation implements Location
     public SpreadsheetLocation(String cellName)
     {
         // TODO: Fill this out with your own code
-    	this.colNum = cellName.charAt(0) - 'A';
-    	this.rowNum = Integer.parseInt(cellName.substring(1));
+    	this.colNum = cellName.charAt(0);
+    	int intValue = Integer.parseInt(cellName);
+    	this.rowNum = intValue - colNum;
     }
 
 }
