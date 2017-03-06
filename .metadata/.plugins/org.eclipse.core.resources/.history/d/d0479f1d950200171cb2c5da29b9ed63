@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package textExcel;
+
+/**
+ * @author APCS2
+ *
+ */
+public class TextCell implements Cell {
+
+	/* (non-Javadoc)
+	 * @see textExcel.Cell#abbreviatedCellText()
+	 */
+	@Override
+	public String abbreviatedCellText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see textExcel.Cell#fullCellText()
+	 */
+	@Override
+	public String fullCellText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

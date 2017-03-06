@@ -8,8 +8,7 @@ public class EmptyCell implements Cell {
 	@Override
 	public String abbreviatedCellText() {
 		// TODO Auto-generated method stub
-		emptyValue.substring(0, 9);
-		return null;
+		return this.emptyValue.substring(0, 9);
 	}
 
 	@Override

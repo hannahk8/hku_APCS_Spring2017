@@ -17,6 +17,9 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{
 		// TODO Auto-generated method stub
+		SpreadsheetLocation location = new SpreadsheetLocation(command);
+    	this.cellArray[location.getRow()][location.getCol()] = 
+    			new TextCell(command);
 		return command;
 	}
 
@@ -45,6 +48,7 @@ public class Spreadsheet implements Grid
 	public String getGridText()
 	{
 		// TODO Auto-generated method stub
+		System.out.print
 		return null;
 	}
 

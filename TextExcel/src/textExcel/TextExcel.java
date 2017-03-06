@@ -10,12 +10,12 @@ public class TextExcel
 
 	public static void main(String[] args)
 	{
-		EmptyCell[][] cellArray = new EmptyCell[12][20];
+		Spreadsheet newSheet= new Spreadsheet();
 		Scanner input = new Scanner(System.in);
 		String userInput = input.nextLine();
 		while(!userInput.equals("quit")){		
 			userInput = input.nextLine();
-			processCommand(userInput);	
+			newSheet.processCommand(userInput);	
 		}
 	}
 	public static String processCommand(String command)
