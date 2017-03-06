@@ -13,9 +13,13 @@ public class TextExcel
 		EmptyCell[][] cellArray = new EmptyCell[12][20];
 		Scanner input = new Scanner(System.in);
 		String userInput = input.nextLine();
-		while(userInput != "quit"){			
+		while(!userInput.equals("quit")){		
 			userInput = input.nextLine();
-			Spreadsheet.processCommand(userInput);	
+			processCommand(userInput);	
 		}
+	}
+	public static String processCommand(String command)
+	{
+		return command;
 	}
 }

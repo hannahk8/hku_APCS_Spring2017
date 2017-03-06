@@ -10,7 +10,7 @@ public class SpreadsheetLocation implements Location
     public int getRow()
     {
         // TODO Auto-generated method stub
-        return this.rowNum;
+        return this.rowNum - 1;
     }
 
     @Override
