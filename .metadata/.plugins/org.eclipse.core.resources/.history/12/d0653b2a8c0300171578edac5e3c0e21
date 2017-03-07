@@ -5,16 +5,9 @@ import java.util.*;
 public class Spreadsheet implements Grid
 {
 	private Cell[][] cellArray;
-	private String firstRow = "";
-	private int columnNumber;
 	public Spreadsheet(){
 		cellArray = new EmptyCell[20][12];
-		//make first row (A - L)
-		for(int i = 0; i < 12; i ++){
-				firstRow += "|" + (char)i + "         ";
-		}
-		//set all values to empty cell objects
-		for(int i = 1; i < cellArray.length; i++){
+		for(int i = 0; i < cellArray.length; i++){
 			for(int j = 0; j < cellArray[i].length; j++){
 				cellArray[i][j] = new EmptyCell();
 			}
@@ -24,18 +17,10 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{
 		// TODO Auto-generated method stub
-		
-		if(command = "clear"){
-			Spreadsheet clearedSpreadsheet = new Spreadsheet();
-			return clearedSpreadsheet;
-		}
-		
-		if(command.contains("=")){
-			SpreadsheetLocation location = new SpreadsheetLocation(command);
-	    	this.cellArray[location.getRow()][location.getCol()] = 
-	    			new TextCell(command);
-			return command;
-		}
+		SpreadsheetLocation location = new SpreadsheetLocation(command);
+    	this.cellArray[location.getRow()][location.getCol()] = 
+    			new TextCell(command);
+		return command;
 	}
 
 	@Override
@@ -63,7 +48,7 @@ public class Spreadsheet implements Grid
 	public String getGridText()
 	{
 		// TODO Auto-generated method stub
-		
+		System.out.print
 		return null;
 	}
 

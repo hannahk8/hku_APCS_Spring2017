@@ -18,4 +18,8 @@ public class TextExcel
 			newSheet.processCommand(userInput);	
 		}
 	}
+	public static String processCommand(String command)
+	{
+		return command;
+	}
 }
