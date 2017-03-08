@@ -5,37 +5,50 @@ import java.util.*;
 public class Spreadsheet implements Grid
 {
 	private Cell[][] cellArray;
-	private String firstRow = "";
-	private int columnNumber;
+	private String firstRow = "   ";
 	public Spreadsheet(){
+		//make array with empty cell objects
 		cellArray = new EmptyCell[20][12];
 		//make first row (A - L)
 		for(int i = 0; i < 12; i ++){
-				firstRow += "|" + (char)i + "         ";
+				firstRow += "|" + ((char)(i + 65)) + "         ";
 		}
-		//set all values to empty cell objects
-		for(int i = 1; i < cellArray.length; i++){
-			for(int j = 0; j < cellArray[i].length; j++){
-				cellArray[i][j] = new EmptyCell();
-			}
-		}
+		firstRow += "\n";
 	}
 	@Override
 	public String processCommand(String command)
 	{
 		// TODO Auto-generated method stub
 		
-		if(command = "clear"){
-			Spreadsheet clearedSpreadsheet = new Spreadsheet();
-			return clearedSpreadsheet;
+		//if command is clear
+		if(command.equals("clear")){
+			Spreadsheet cellArray = new Spreadsheet();
+			return getGridText();
+			
 		}
-		
+		//if command is for example "clear A1"
+		if(command.contains("clear ")){
+			String[] splitCommand = command.split(" ");
+			String locationToChange = splitCommand[1];
+			SpreadsheetLocation location = new SpreadsheetLocation(locationToChange);
+			this.cellArray[location.getRow()][location.getCol()] = new EmptyCell();
+			return getGridText();
+		}
+		//if command is for example "A1 = "hello""
 		if(command.contains("=")){
-			SpreadsheetLocation location = new SpreadsheetLocation(command);
+			// split command into location and value
+			String[] splitCommand = command.split("=");
+			String commandLocation = splitCommand[0];
+			String commandValue = splitCommand[1];
+			SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
 	    	this.cellArray[location.getRow()][location.getCol()] = 
-	    			new TextCell(command);
-			return command;
+	    			new TextCell(commandValue);
+	    	return getGridText();
+			
 		}
+		//if command is only the location, for example "A1"
+		SpreadsheetLocation location = new SpreadsheetLocation(command);
+		return this.cellArray[location.getRow()][location.getCol()].fullCellText();
 	}
 
 	@Override
@@ -62,9 +75,21 @@ public class Spreadsheet implements Grid
 	@Override
 	public String getGridText()
 	{
-		// TODO Auto-generated method stub
+		String SpreadsheetString = "";
+		SpreadsheetString += firstRow;
+		SpreadsheetString += "1  |";
+		for(int i = 0; i < this.cellArray.length; i++){
+			for(int j = 0; j < this.cellArray[i].length; j ++){
+				//SpreadsheetString += cellArray[i][j].abbreviatedCellText();
+				SpreadsheetString += "hello ";
+				if(j == 11){
+					SpreadsheetString += "\n";
+					SpreadsheetString += (i + 2) + "  |";
+				}
+			}
+		}
 		
-		return null;
+		return SpreadsheetString;
 	}
 
 }

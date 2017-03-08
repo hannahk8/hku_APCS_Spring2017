@@ -13,12 +13,11 @@ public class TextCell implements Cell {
 	 * @see textExcel.Cell#abbreviatedCellText()
 	 */
 	public TextCell(String value){
-		cellText = value;
+		this.cellText = value;
 	}
 	@Override
 	public String abbreviatedCellText() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cellText.substring(0, 9);
 	}
 
 	/* (non-Javadoc)
@@ -26,8 +25,7 @@ public class TextCell implements Cell {
 	 */
 	@Override
 	public String fullCellText() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.cellText;
 	}
 
 }
