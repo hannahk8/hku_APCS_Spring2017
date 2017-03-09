@@ -79,12 +79,19 @@ public class Spreadsheet implements Grid
 		SpreadsheetString += firstRow;
 		SpreadsheetString += "1  |";
 		for(int i = 0; i < this.cellArray.length; i++){
-			for(int j = 0; j < this.cellArray[i].length; j ++){
-				//SpreadsheetString += cellArray[i][j].abbreviatedCellText();
-				SpreadsheetString += "hello ";
+			for(int j = 0; j < this.cellArray[i].length; j++){
+				SpreadsheetString += cellArray[i][j].abbreviatedCellText();
+				//SpreadsheetString += "hello ";
 				if(j == 11){
-					SpreadsheetString += "\n";
-					SpreadsheetString += (i + 2) + "  |";
+						SpreadsheetString += "\n";
+					if(i != 19){
+						if(i >= 8){
+							SpreadsheetString += (i + 2) + " |"; 
+						}else{
+							SpreadsheetString += (i + 2) + "  |";
+						}
+					}
+					
 				}
 			}
 		}
