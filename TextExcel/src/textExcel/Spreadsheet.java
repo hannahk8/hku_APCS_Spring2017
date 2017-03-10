@@ -4,16 +4,20 @@ import java.util.*;
 
 public class Spreadsheet implements Grid
 {
-	private Cell[][] cellArray;
+	private Cell[][] cellArray = new EmptyCell[20][12];
 	private String firstRow = "   ";
 	public Spreadsheet(){
 		//make array with empty cell objects
-		cellArray = new EmptyCell[20][12];
+		for(int i = 0; i < 20; i++){
+			for(int j = 0; j < 12; j++){
+				cellArray[i][j] = new EmptyCell();
+			}
+		}
 		//make first row (A - L)
 		for(int i = 0; i < 12; i ++){
 				firstRow += "|" + ((char)(i + 65)) + "         ";
 		}
-		firstRow += "\n";
+		firstRow += "|\n";
 	}
 	@Override
 	public String processCommand(String command)
@@ -37,7 +41,7 @@ public class Spreadsheet implements Grid
 		//if command is for example "A1 = "hello""
 		if(command.contains("=")){
 			// split command into location and value
-			String[] splitCommand = command.split("=");
+			String[] splitCommand = command.split(" = ");
 			String commandLocation = splitCommand[0];
 			String commandValue = splitCommand[1];
 			SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
@@ -80,8 +84,7 @@ public class Spreadsheet implements Grid
 		SpreadsheetString += "1  |";
 		for(int i = 0; i < this.cellArray.length; i++){
 			for(int j = 0; j < this.cellArray[i].length; j++){
-				SpreadsheetString += cellArray[i][j].abbreviatedCellText();
-				//SpreadsheetString += "hello ";
+				SpreadsheetString += (cellArray[i][j].abbreviatedCellText() + "|");
 				if(j == 11){
 						SpreadsheetString += "\n";
 					if(i != 19){

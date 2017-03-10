@@ -17,8 +17,7 @@ public class TextCell implements Cell {
 	}
 	@Override
 	public String abbreviatedCellText() {
-		return "          |";
-		//return this.cellText.substring(0, 9);
+		return this.cellText.substring(0, 9);
 	}
 
 	/* (non-Javadoc)
