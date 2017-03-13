@@ -24,7 +24,7 @@ public class Spreadsheet implements Grid
 	{  	
 		//if there is no command
 		if(command.length() == 0){
-			return "          ";
+			return "";
 		}
 		//if command is clear
 		if(command.toLowerCase().equals("clear")){
