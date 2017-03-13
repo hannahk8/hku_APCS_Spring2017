@@ -9,23 +9,32 @@ package textExcel;
  */
 public class TextCell implements Cell {
 	private String cellText;
-	/* (non-Javadoc)
-	 * @see textExcel.Cell#abbreviatedCellText()
-	 */
-	public TextCell(String value){
-		this.cellText = value;
+	private int cellTextLength;
+	
+	public TextCell(String inputValue){
+		this.cellText = inputValue;
+		cellTextLength = inputValue.length();
 	}
 	@Override
 	public String abbreviatedCellText() {
-		return this.cellText.substring(0, 9);
+		if(this.cellText.length() == 0){
+			return "          ";
+		}
+		if(this.cellText.length() > 10){
+			return this.cellText.substring(0,10);
+		}
+		if(this.cellText.length() < 10){
+			int difference = 10 - this.cellText.length();
+			for(int k = 0; k < difference; k++){
+				cellText += " ";
+			}
+		}
+			return this.cellText;
 	}
 
-	/* (non-Javadoc)
-	 * @see textExcel.Cell#fullCellText()
-	 */
 	@Override
 	public String fullCellText() {
-		return this.cellText;
+		return "\"" + this.cellText.substring(0, cellTextLength) + "\"";
 	}
 
 }

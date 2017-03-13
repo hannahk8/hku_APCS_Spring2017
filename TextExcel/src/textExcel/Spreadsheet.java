@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Spreadsheet implements Grid
 {
-	private Cell[][] cellArray = new EmptyCell[20][12];
+	private Cell[][] cellArray = new Cell[20][12];
 	private String firstRow = "   ";
 	public Spreadsheet(){
 		//make array with empty cell objects
@@ -21,32 +21,25 @@ public class Spreadsheet implements Grid
 	}
 	@Override
 	public String processCommand(String command)
-	{
-		// TODO Auto-generated method stub
-		
+	{  	
+		//if there is no command
+		if(command.length() == 0){
+			return "          ";
+		}
 		//if command is clear
-		if(command.equals("clear")){
-			Spreadsheet cellArray = new Spreadsheet();
+		if(command.toLowerCase().equals("clear")){
+			clearEntireSheet();
 			return getGridText();
 			
 		}
 		//if command is for example "clear A1"
-		if(command.contains("clear ")){
-			String[] splitCommand = command.split(" ");
-			String locationToChange = splitCommand[1];
-			SpreadsheetLocation location = new SpreadsheetLocation(locationToChange);
-			this.cellArray[location.getRow()][location.getCol()] = new EmptyCell();
+		if(command.toLowerCase().contains("clear ")){
+			clearSpecificCell(command);
 			return getGridText();
 		}
 		//if command is for example "A1 = "hello""
 		if(command.contains("=")){
-			// split command into location and value
-			String[] splitCommand = command.split(" = ");
-			String commandLocation = splitCommand[0];
-			String commandValue = splitCommand[1];
-			SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
-	    	this.cellArray[location.getRow()][location.getCol()] = 
-	    			new TextCell(commandValue);
+			changeCellValue(command);
 	    	return getGridText();
 			
 		}
@@ -55,25 +48,57 @@ public class Spreadsheet implements Grid
 		return this.cellArray[location.getRow()][location.getCol()].fullCellText();
 	}
 
+	
+	public void clearEntireSheet(){
+		for(int i = 0; i < 20; i++){
+			for(int j = 0; j < 12; j++){
+				cellArray[i][j] = new EmptyCell();
+			}
+		}
+	}
+	
+	public void clearSpecificCell(String input){
+		String[] splitCommand = input.split(" ");
+		String locationToChange = splitCommand[1];
+		SpreadsheetLocation location = new SpreadsheetLocation(locationToChange);
+		this.cellArray[location.getRow()][location.getCol()] = new EmptyCell();
+	}
+	
+	public void changeCellValue(String input){
+		// split command into location and value
+		String[] splitCommand = input.split(" = ");
+		String commandLocation = splitCommand[0];
+		String commandValue = splitCommand[1];
+		// in case there are two equal signs
+		if(splitCommand.length > 2){
+			commandValue += " = " + splitCommand[2];
+			System.out.println(commandValue);
+		}
+		//remove quotes so value in cell will not be quoted
+		if(commandValue.contains("\"")){
+			commandValue = commandValue.replace("\"", "");
+		}
+		
+		SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
+		this.cellArray[location.getRow()][location.getCol()] = new TextCell(commandValue);
+	}
+	
 	@Override
 	public int getRows()
 	{
-		// TODO Auto-generated method stub
 		return this.cellArray.length;
 	}
 
 	@Override
 	public int getCols()
 	{
-		// TODO Auto-generated method stub
 		return this.cellArray[0].length;
 	}
 
 	@Override
 	public Cell getCell(Location loc)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.cellArray[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
@@ -84,7 +109,8 @@ public class Spreadsheet implements Grid
 		SpreadsheetString += "1  |";
 		for(int i = 0; i < this.cellArray.length; i++){
 			for(int j = 0; j < this.cellArray[i].length; j++){
-				SpreadsheetString += (cellArray[i][j].abbreviatedCellText() + "|");
+				SpreadsheetString += (cellArray[i][j].abbreviatedCellText());
+				SpreadsheetString += "|";
 				if(j == 11){
 						SpreadsheetString += "\n";
 					if(i != 19){
