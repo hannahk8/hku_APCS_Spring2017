@@ -1,12 +1,8 @@
 package textExcel;
 
 public class PercentCell extends RealCell {
-	
-	private double percentValue;
 
-	public PercentCell(String percent){
-		String noPercentSign = percent.substring(0, percent.length()); 
-		percentValue = Double.parseDouble(noPercentSign);
+	public PercentCell() {
 	}
 	
 	public String abbreviatedCellText(){
@@ -18,6 +14,6 @@ public class PercentCell extends RealCell {
 	}
 
 	public double getDoubleValue(){
-		return 0.0;
+		return 
 	}
 }

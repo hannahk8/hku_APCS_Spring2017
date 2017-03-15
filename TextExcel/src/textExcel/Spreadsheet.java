@@ -43,6 +43,7 @@ public class Spreadsheet implements Grid
 	    	return getGridText();
 			
 		}
+		
 		//if command is only the location, for example "A1"
 		SpreadsheetLocation location = new SpreadsheetLocation(command);
 		return this.cellArray[location.getRow()][location.getCol()].fullCellText();
@@ -77,6 +78,16 @@ public class Spreadsheet implements Grid
 		//remove quotes so value in cell will not be quoted
 		if(commandValue.contains("\"")){
 			commandValue = commandValue.replace("\"", "");
+		}
+		//gets the location that was passed in
+		SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
+		
+		if(commandValue.contains("%")){
+			this.cellArray[location.getRow()][location.getCol()] = new PercentCell(commandValue);
+		}else if(commandValue.contains("(")){
+			
+		}else{
+			
 		}
 		
 		SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);

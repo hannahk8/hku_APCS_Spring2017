@@ -4,9 +4,8 @@ public class PercentCell extends RealCell {
 	
 	private double percentValue;
 
-	public PercentCell(String percent){
-		String noPercentSign = percent.substring(0, percent.length()); 
-		percentValue = Double.parseDouble(noPercentSign);
+	public PercentCell(){
+		
 	}
 	
 	public String abbreviatedCellText(){
