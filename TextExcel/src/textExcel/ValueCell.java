@@ -1,22 +1,31 @@
 package textExcel;
 
 public class ValueCell extends RealCell {
-	double doubleValue;
-	
-	public ValueCell(double doubleNum) {
-		doubleValue = doubleNum;
+	private String stringDouble;
+		
+	public ValueCell(String doubleNum) {
+		this.stringDouble = doubleNum;
 	}
 	
 	public String abbreviatedCellText(){
-		return null;
+		if(this.stringDouble.length() > 10){
+			return this.stringDouble.substring(0,10);
+		}
+		if(this.stringDouble.length() < 10){
+			int difference = 10 - this.stringDouble.length();
+			for(int k = 0; k < difference; k++){
+				stringDouble += " ";
+			}
+		}
+			return this.stringDouble;
 	}
 	
 	public String fullCellText(){
-		return null;
+		return this.stringDouble.replaceAll("\"", "");
 	}
 	
 	public double getDoubleValue(){
-		return doubleValue;
+		return Double.parseDouble(this.stringDouble);
 	}
 
 }

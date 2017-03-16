@@ -2,22 +2,38 @@ package textExcel;
 
 public class PercentCell extends RealCell {
 	
-	private double percentValue;
+	private String percentValue;
 
 	public PercentCell(String percent){
-		String noPercentSign = percent.substring(0, percent.length()); 
-		percentValue = Double.parseDouble(noPercentSign);
+		this.percentValue = percent;
 	}
 	
 	public String abbreviatedCellText(){
-		return null;
+		if(percentValue.contains(".")){
+			int decimalIndex = percentValue.indexOf(".");
+			this.percentValue = percentValue.substring(0, decimalIndex);
+		}
+		if(percentValue.length() > 10){
+			return percentValue.substring(0, 9) + "hi";
+		}
+		if(percentValue.length() < 10){
+			int difference = 10 - percentValue.length();
+			percentValue += "%";
+			for(int k = 0; k < difference; k++){
+				percentValue += " ";
+			}
+		}
+			return this.percentValue;
 	}
 	
 	public String fullCellText(){
-		return null;
+		int decimalIndex = percentValue.indexOf(".");
+		String roundedPercent = percentValue.substring(0, decimalIndex);
+		return roundedPercent;
 	}
 
 	public double getDoubleValue(){
-		return 0.0;
+		double doubleValue = Double.parseDouble(percentValue);
+		return doubleValue;
 	}
 }

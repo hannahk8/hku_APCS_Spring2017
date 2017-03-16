@@ -1,0 +1,36 @@
+package textExcel;
+
+public class PercentCell extends RealCell {
+	
+	private String percentValue;
+
+	public PercentCell(String percent){
+		this.percentValue = percent;
+	}
+	
+	public String abbreviatedCellText(){
+		int decimalIndex = percentValue.indexOf(".");
+		String roundedPercent = percentValue.substring(0, decimalIndex);
+		if(this.percentValue.length() > 10){
+			return roundedPercent.substring(0, 9) + "%";
+		}
+		if(this.percentValue.length() < 10){
+			int difference = 10 - this.percentValue.length();
+			for(int k = 0; k < difference; k++){
+				roundedPercent += " ";
+			}
+		}
+			return this.percentValue;
+	}
+	
+	public String fullCellText(){
+		int decimalIndex = percentValue.indexOf(".");
+		String roundedPercent = percentValue.substring(0, decimalIndex);
+		return roundedPercent;
+	}
+
+	public double getDoubleValue(){
+		double doubleValue = Double.parseDouble(percentValue);
+		return doubleValue;
+	}
+}
