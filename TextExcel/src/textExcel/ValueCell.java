@@ -2,9 +2,11 @@ package textExcel;
 
 public class ValueCell extends RealCell {
 	private String stringDouble;
+	private String noSpacesStringDouble;
 		
 	public ValueCell(String doubleNum) {
 		this.stringDouble = doubleNum;
+		this.noSpacesStringDouble = doubleNum;
 	}
 	
 	public String abbreviatedCellText(){
@@ -21,7 +23,7 @@ public class ValueCell extends RealCell {
 	}
 	
 	public String fullCellText(){
-		return this.stringDouble.replaceAll("\"", "");
+		return this.stringDouble;//.replaceAll("\"", "") + "";
 	}
 	
 	public double getDoubleValue(){

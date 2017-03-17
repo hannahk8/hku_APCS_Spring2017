@@ -19,11 +19,11 @@ public class PercentCell extends RealCell {
 		if(percentValue.length() < 10){
 			int difference = 10 - percentValue.length();
 			percentValue += "%";
-			for(int k = 0; k < difference; k++){
+			for(int k = 0; k < 8; k++){
 				percentValue += " ";
 			}
 		}
-			return this.percentValue;
+		return this.percentValue;
 	}
 	
 	public String fullCellText(){
