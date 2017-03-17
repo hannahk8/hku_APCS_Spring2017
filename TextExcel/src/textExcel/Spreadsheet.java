@@ -77,6 +77,7 @@ public class Spreadsheet implements Grid
 		}
 		//remove quotes so value in cell will not be quoted
 		if(commandValue.contains("\"")){
+			this.cellArray[row][col] = new TextCell(commandValue);
 			commandValue = commandValue.replace("\"", "");
 		}
 		//gets the location that was passed in
