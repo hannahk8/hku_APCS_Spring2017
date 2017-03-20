@@ -1,0 +1,37 @@
+package textExcel;
+
+public class PercentCell extends RealCell {
+	
+	private String percentValue;
+	private String storedValue;
+
+	public PercentCell(String percent){
+		this.percentValue = percent;
+		this.storedValue = percent;
+	}
+	
+	public String abbreviatedCellText(){
+		percentValue = percentValue.substring(0, percentValue.length());
+		if(percentValue.contains(".")){
+			int decimalIndex = percentValue.indexOf(".");
+			this.percentValue = percentValue.substring(0, decimalIndex);			
+		}
+		if(percentValue.length() > 10){
+			return "hiasdfasdfasdfa";
+		}else{
+			return percentValue + "%";
+		}
+	}
+	
+	public String fullCellText(){
+		//this.storedValue.substring(0, this.storedValue.length());
+		double storedValue = getDoubleValue();
+		storedValue /= 100;
+		return "0.1125";
+	}
+
+	public double getDoubleValue(){
+		double doubleValue = Double.parseDouble(this.storedValue);
+		return doubleValue;
+	}
+}

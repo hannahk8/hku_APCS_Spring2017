@@ -1,12 +1,14 @@
+//Hannah Ku 3/19/17 2nd Period CompSci
+//this is the abstract RealCell class that has methods that will be inherited or overridden.
 package textExcel;
 
 public abstract class RealCell implements Cell {
 	private String doubleCellValue;
 	private String stringDouble;
-	private String noSpacesStringDouble;
 	
 	@Override
 	public String abbreviatedCellText() {
+		//if string length is greater than ten, return substring 0, 10
 		if(this.stringDouble.length() > 10){
 			return this.stringDouble.substring(0,10);
 		}

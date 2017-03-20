@@ -1,0 +1,43 @@
+package textExcel;
+
+public class PercentCell extends RealCell {
+	
+	private String percentValue;
+	private String storedValue;
+
+	public PercentCell(String percent){
+		this.percentValue = percent;
+		this.storedValue = percent;
+	}
+	
+	public String abbreviatedCellText(){
+		
+		
+		
+		percentValue = percentValue.substring(0, percentValue.length());
+		if(percentValue.contains(".")){
+			int decimalIndex = percentValue.indexOf(".");
+			this.percentValue = percentValue.substring(0, decimalIndex);			
+		}
+		if(percentValue.length() > 10){
+			return percentValue.substring(0, 10);
+		}else{
+			int difference = 10 - this.percentValue.length();
+			percentValue += "%";
+			for(int k = 0; k < difference -1; k++){
+				percentValue += "i";
+			}
+			return percentValue;
+		}
+	}
+	
+	public String fullCellText(){
+		storedValue = storedValue.substring(0, storedValue.length() - 1);
+		return Double.toString(getDoubleValue()/100);
+	}
+
+	public double getDoubleValue(){
+		double doubleValue = Double.parseDouble(this.storedValue);
+		return doubleValue;
+	}
+}

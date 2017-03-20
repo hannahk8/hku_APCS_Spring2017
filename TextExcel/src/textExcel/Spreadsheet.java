@@ -1,6 +1,11 @@
+//Hannah Ku 3/19/17 2nd Period CompSci
+//this is the spreadsheet class that creates a spreadsheet as a long string.
 package textExcel;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
-// Update this file with your own code.
+import java.io.*;
 
 public class Spreadsheet implements Grid
 {
@@ -44,6 +49,10 @@ public class Spreadsheet implements Grid
 			
 		}
 		
+		/*if(command.equals("save myData.csv")){
+			writeFile(myFile);
+		}*/
+		
 		//if command is only the location, for example "A1"
 		SpreadsheetLocation location = new SpreadsheetLocation(command);
 		return this.cellArray[location.getRow()][location.getCol()].fullCellText();
@@ -75,24 +84,26 @@ public class Spreadsheet implements Grid
 			commandValue += " = " + splitCommand[2];
 			System.out.println(commandValue);
 		}
-		//remove quotes so value in cell will not be quoted
-		if(commandValue.contains("\"")){
-			this.cellArray[row][col] = new TextCell(commandValue);
-			commandValue = commandValue.replace("\"", "");
-		}
+		
 		//gets the location that was passed in
 		SpreadsheetLocation location = new SpreadsheetLocation(commandLocation);
 		int row = location.getRow();
 		int col = location.getCol();
 		
-		if(commandValue.contains("%")){
+		//remove quotes so value in cell will not be quoted
+		if(commandValue.contains("\"")){
+			commandValue = commandValue.replace("\"", "");
+			this.cellArray[row][col] = new TextCell(commandValue);
+		//if contains percent sign, make percent cell
+		}else if(commandValue.contains("%")){
 			this.cellArray[row][col] = new PercentCell(commandValue);
+		//if contains parenthesis, make formula cell
 		}else if(commandValue.contains("(")){
 			this.cellArray[row][col] = new FormulaCell(commandValue);
+		//if none of the above tests pass it is a value cell
 		}else{
 			this.cellArray[row][col] = new ValueCell(commandValue);
 		}
-		//this.cellArray[row][col] = new TextCell(commandValue);
 	}
 	
 	@Override
@@ -111,6 +122,27 @@ public class Spreadsheet implements Grid
 	public Cell getCell(Location loc)
 	{
 		return this.cellArray[loc.getRow()][loc.getCol()];
+	}
+	
+	public String getCellType(Location loc){
+		String cellValue = this.cellArray[loc.getRow()][loc.getCol()].fullCellText();
+		if(cellValue.contains("\"")){
+			return "TextCell";
+		}else if(cellValue.contains("%")){
+			return "PercentCell";
+		}else if(cellValue.contains("(")){
+			return "FormulaCell";
+		}else{
+			return "ValueCell";
+		}
+	}
+	
+	public String getLocation(Cell value){
+		for(int i = 0; i < 20; i ++){
+			for(int j = 0; j < 12; j ++){
+				
+			}
+		}
 	}
 
 	@Override
@@ -138,6 +170,42 @@ public class Spreadsheet implements Grid
 		}
 		
 		return SpreadsheetString;
+	}
+	
+	private String writeFile(String filename){
+		PrintStream outputFile;
+		try{
+			outputFile = new PrintStream(new File(filename));
+		}
+		catch (FileNotFoundException e){
+			return "File not found: " + filename;
+		}
+		
+		for(int i = 0; i < 20; i ++){
+			for(int j = 0; j < 12; j ++){
+				outputFile.println(getLocation(cellArray[i][j]), getCellType(getLocation(cellArray[i][j])), )
+			}
+		}
+		
+		
+		
+		
+		outputFile.println(location, )
+		outputFile.close();
+		return "hi";
+	}
+	
+	private String readFile(String filename){
+		Scanner inputFile;
+		try{
+			inputFile = new Scanner(new File(filename));
+		}
+		catch (FileNotFoundException e ){
+			return "File not found: " + filename;
+		}
+		inputFile.nextLine();
+		inputFile.close();
+		return "hi";
 	}
 
 }
