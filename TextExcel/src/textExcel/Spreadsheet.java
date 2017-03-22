@@ -195,7 +195,7 @@ public class Spreadsheet implements Grid
 			for(int j = 0; j < 12; j ++){
 				if(!getCellType(cellArray[i][j]).equals("EmptyCell")){
 					outputFile.println(getLocation(i, j) + "," + getCellType(cellArray[i][j]) 
-					+ "," + cellArray[i][j]);
+					+ "," + cellArray[i][j].fullCellText());
 				}
 			}
 		}
