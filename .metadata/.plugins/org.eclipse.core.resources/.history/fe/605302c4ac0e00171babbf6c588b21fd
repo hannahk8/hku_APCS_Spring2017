@@ -56,12 +56,9 @@ public class Spreadsheet implements Grid
 			}
 		}
 		
-		if(command.contains("open")){
-			String[] splitCommand = command.split(" ");
-			if(splitCommand[0].equals("open")){
-				readFile(splitCommand[1]);
-			}
-		}
+		//if(command.contains("open")){
+			//String[] splitCommand = command.split
+		//}
 		
 		//if command is only the location, for example "A1"
 		SpreadsheetLocation location = new SpreadsheetLocation(command);
@@ -151,8 +148,7 @@ public class Spreadsheet implements Grid
 	public String getLocation(int row, int col){
 		String location = "";
 		col += 'A';
-		char columnLetter = (char)col;
-		return location + columnLetter + row;
+		return location + col + row;
 	}
 
 	@Override

@@ -56,12 +56,9 @@ public class Spreadsheet implements Grid
 			}
 		}
 		
-		if(command.contains("open")){
-			String[] splitCommand = command.split(" ");
-			if(splitCommand[0].equals("open")){
-				readFile(splitCommand[1]);
-			}
-		}
+		//if(command.contains("open")){
+			//String[] splitCommand = command.split
+		//}
 		
 		//if command is only the location, for example "A1"
 		SpreadsheetLocation location = new SpreadsheetLocation(command);
@@ -151,8 +148,7 @@ public class Spreadsheet implements Grid
 	public String getLocation(int row, int col){
 		String location = "";
 		col += 'A';
-		char columnLetter = (char)col;
-		return location + columnLetter + row;
+		return location + col + row;
 	}
 
 	@Override
@@ -212,28 +208,7 @@ public class Spreadsheet implements Grid
 		catch (FileNotFoundException e ){
 			return "File not found: " + filename;
 		}
-		while(inputFile.hasNextLine()){
-			String[] splitInput = inputFile.nextLine().split(",");
-			String cellIdentifier = splitInput[0];
-			String cellType = splitInput[1];
-			String cellValue = splitInput[2];
-			
-			
-			SpreadsheetLocation location = new SpreadsheetLocation(cellIdentifier);
-			int row = location.getRow();
-			int col = location.getCol();
-			
-			if(cellType.equals("TextCell")){
-				cellArray[row][col] = new ValueCell(cellValue);
-			}else if(cellType.equals("PercentCell")){
-				cellArray[row][col] = new PercentCell(cellValue);
-			}else if(cellType.equals("FormulaCell")){
-				cellArray[row][col] = new PercentCell(cellValue);
-			}else if(cellType.equals("ValueCell")){
-				cellArray[row][col] = new PercentCell(cellValue);
-			}
-					
-		}
+		inputFile.nextLine();
 		inputFile.close();
 		return "hi";
 	}

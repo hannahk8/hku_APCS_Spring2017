@@ -151,8 +151,7 @@ public class Spreadsheet implements Grid
 	public String getLocation(int row, int col){
 		String location = "";
 		col += 'A';
-		char columnLetter = (char)col;
-		return location + columnLetter + row;
+		return location + col + row;
 	}
 
 	@Override
