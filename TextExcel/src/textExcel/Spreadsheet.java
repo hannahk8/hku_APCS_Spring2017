@@ -52,14 +52,14 @@ public class Spreadsheet implements Grid
 		if(command.contains("save")){
 			String[] splitCommand = command.split(" ");
 			if(splitCommand[0].equals("save")){
-				writeFile(splitCommand[1]);
+				return writeFile(splitCommand[1]);
 			}
 		}
 		
 		if(command.contains("open")){
 			String[] splitCommand = command.split(" ");
 			if(splitCommand[0].equals("open")){
-				readFile(splitCommand[1]);
+				return readFile(splitCommand[1]);
 			}
 		}
 		
@@ -201,7 +201,7 @@ public class Spreadsheet implements Grid
 		}
 		
 		outputFile.close();
-		return "hi";
+		return getGridText();
 	}
 	
 	private String readFile(String filename){
@@ -224,18 +224,18 @@ public class Spreadsheet implements Grid
 			int col = location.getCol();
 			
 			if(cellType.equals("TextCell")){
-				cellArray[row][col] = new ValueCell(cellValue);
+				cellArray[row][col] = new TextCell(cellValue);
 			}else if(cellType.equals("PercentCell")){
 				cellArray[row][col] = new PercentCell(cellValue);
 			}else if(cellType.equals("FormulaCell")){
-				cellArray[row][col] = new PercentCell(cellValue);
+				cellArray[row][col] = new FormulaCell(cellValue);
 			}else if(cellType.equals("ValueCell")){
-				cellArray[row][col] = new PercentCell(cellValue);
+				cellArray[row][col] = new ValueCell(cellValue);
 			}
 					
 		}
 		inputFile.close();
-		return "hi";
+		return getGridText();
 	}
 
 }
