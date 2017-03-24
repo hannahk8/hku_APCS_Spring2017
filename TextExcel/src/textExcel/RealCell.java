@@ -29,7 +29,7 @@ public abstract class RealCell implements Cell {
 	public void setCellText(String value){
 		this.doubleCellValue = value;
 	}
-	
+	 
 	public String getCellText(){
 		return doubleCellValue;
 	}

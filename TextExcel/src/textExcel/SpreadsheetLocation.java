@@ -28,4 +28,4 @@ public class SpreadsheetLocation implements Location
     	this.rowNum = Integer.parseInt(cellName.substring(1));
     }
 
-}
+} 

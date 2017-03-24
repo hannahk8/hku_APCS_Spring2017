@@ -87,7 +87,7 @@ public class Spreadsheet implements Grid
 	public void changeCellValue(String input){
 		// split command into location and value
 		String[] splitCommand = input.split(" = ");
-		String commandLocation = splitCommand[0];
+ 		String commandLocation = splitCommand[0];
 		String commandValue = splitCommand[1];
 		// in case there are two equal signs
 		if(splitCommand.length > 2){
