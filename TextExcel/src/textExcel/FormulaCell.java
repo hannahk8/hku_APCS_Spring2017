@@ -1,17 +1,23 @@
 package textExcel;
+import java.util.Arrays;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class FormulaCell extends RealCell{
 	private String formulaValue;
-	String calculatedValue = Double.toString(getDoubleValue());
+	String calculatedValue;
 
 
 	public FormulaCell(String formula) {
 		//setCellText(formula);
 		//this.formulaValue = getCellText();
-		this.formulaValue = formula;
+		System.out.println(formula);
+		formulaValue = formula;
+		System.out.println(formulaValue);
 	}
 
 	public String abbreviatedCellText() {
+		String calculatedValue = Double.toString(getDoubleValue());
 		//if string length is greater than ten, return substring 0, 10
 		if(calculatedValue.length() > 10){
 			return calculatedValue.substring(0,10);
@@ -60,9 +66,11 @@ public class FormulaCell extends RealCell{
 	}
 	
 	public double getDoubleValue(){
-		String[] formulaArrayValues = formulaValue.split(" ");
+		System.out.println(this.formulaValue + "hi");
+		String[] formulaArrayValues = formulaValue.split(" "); 
+		System.out.println(formulaArrayValues[0]);
 		double nextNum = 0.0;
-		for(int i = 1; i < formulaArrayValues.length; i += 2){
+		/*for(int i = 1; i < formulaArrayValues.length; i += 2){
 			double currentNum = Double.parseDouble(formulaArrayValues[i]);
 			nextNum = Double.parseDouble(formulaArrayValues[i + 2]);
 			if(formulaArrayValues[i + 1].equals("+")){
@@ -74,9 +82,7 @@ public class FormulaCell extends RealCell{
 			}else if(formulaArrayValues[i + 1].equals("/")){
 				nextNum = currentNum / nextNum;
 			}
-		}
-		
-		//return nextNum;
-		return 0.0;
+		}*/
+		return nextNum;
 	}
 }

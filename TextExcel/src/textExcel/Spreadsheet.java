@@ -103,16 +103,16 @@ public class Spreadsheet implements Grid
 		//remove quotes so value in cell will not be quoted
 		if(commandValue.contains("\"")){
 			commandValue = commandValue.replace("\"", "");
-			this.cellArray[row][col] = new TextCell(commandValue);
+			cellArray[row][col] = new TextCell(commandValue);
 		//if contains percent sign, make percent cell
 		}else if(commandValue.contains("%")){
-			this.cellArray[row][col] = new PercentCell(commandValue);
+			cellArray[row][col] = new PercentCell(commandValue);
 		//if contains parenthesis, make formula cell
 		}else if(commandValue.contains("(")){
-			this.cellArray[row][col] = new FormulaCell(commandValue);
+			cellArray[row][col] = new FormulaCell(commandValue);
 		//if none of the above tests pass it is a value cell
 		}else{
-			this.cellArray[row][col] = new ValueCell(commandValue);
+			cellArray[row][col] = new ValueCell(commandValue);
 		}
 	}
 	
