@@ -7,7 +7,9 @@ public class ValueCell extends RealCell {
 	private String unchangedValue;
 		
 	public ValueCell(String doubleNum) {
-		this.stringDouble = doubleNum;
+		
+		setCellText(doubleNum);
+		this.stringDouble = getCellText();
 		unchangedValue = doubleNum;
 	}
 	

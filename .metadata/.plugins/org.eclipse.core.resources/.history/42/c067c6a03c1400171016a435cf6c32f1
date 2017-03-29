@@ -1,0 +1,88 @@
+package textExcel;
+
+public class FormulaCell extends RealCell{
+	private String formulaValue;
+	String calculatedValue = Double.toString(getDoubleValue());
+
+
+	public FormulaCell(String formula) {
+		setCellText(formula);
+		this.formulaValue = getCellText();
+	}
+	
+	/*public String abbreviatedCellText(){
+		String calculatedValue = Double.toString(getDoubleValue());
+		
+		return Double.toString(getDoubleValue());
+	}*/
+	
+	public String abbreviatedCellText() {
+		//if string length is greater than ten, return substring 0, 10
+		if(calculatedValue.length() > 10){
+			return calculatedValue.substring(0,10);
+		}
+		//if string length is less than ten
+		if(calculatedValue.length() < 10){
+			//check to see if there is a decimal
+			if(calculatedValue.contains(".")){
+				//find index of decimal
+				int decimalIndex = calculatedValue.indexOf(".");
+				//get string and double values of the numbers after the decimal point
+				String stringNumAfterDecimal = calculatedValue.substring(decimalIndex);
+				double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
+				// value after decimal is not zero
+				if(numbersAfterDecimal != 0.0 && stringNumAfterDecimal.contains("0")){
+					//use reverse for loop to check for a character that is not zero
+					for(int i = calculatedValue.length() - 1; i > 0; i--){
+						//if it finds a number that is not zero, return substring
+						if(calculatedValue.charAt(i) != '0'){
+							calculatedValue = calculatedValue.substring(0, i + 1);
+							addSpaces();
+							return calculatedValue;
+						}
+					}
+				}
+				if(numbersAfterDecimal == 0.0){
+					calculatedValue = calculatedValue.substring(0, decimalIndex + 2);
+				}
+			}else{
+				calculatedValue += ".0";
+			}
+			addSpaces();
+		}
+			return calculatedValue;
+	}
+	
+	public void addSpaces(){
+		int difference = 10 - calculatedValue.length();
+		for(int k = 0; k < difference; k++){
+			calculatedValue += " ";
+		}
+	}
+	
+	public String fullCellText(){
+		return Double.toString(getDoubleValue());
+	}
+	
+	public double getDoubleValue(){
+		String[] formulaArrayValues = formulaValue.split(" ");
+		double nextNum = 0.0;
+		for(int i = 1; i < formulaArrayValues.length; i += 2){
+			double currentNum = Double.parseDouble(formulaArrayValues[i]);
+			nextNum = Double.parseDouble(formulaArrayValues[i + 2]);
+			
+			if(formulaArrayValues[i + 1].equals("+")){
+				nextNum = currentNum + nextNum;
+			}else if(formulaArrayValues[i + 1].equals("-")){
+				nextNum = currentNum - nextNum;
+			}else if(formulaArrayValues[i + 1].equals("*")){
+				nextNum = currentNum * nextNum;
+			}else if(formulaArrayValues[i + 1].equals("/")){
+				nextNum = currentNum / nextNum;
+			}
+		}
+		
+		//return nextNum;
+		return 0.0;
+	}
+}

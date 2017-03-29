@@ -1,0 +1,69 @@
+//Hannah Ku 3/19/17 2nd Period CompSci
+//this is the abstract RealCell class that has methods that will be inherited or overridden.
+package textExcel;
+
+public abstract class RealCell implements Cell {
+	private String doubleCellValue;
+	private String stringDouble;
+	
+	@Override
+	public String abbreviatedCellText() {
+		//if string length is greater than ten, return substring 0, 10
+				if(this.stringDouble.length() > 10){
+					return this.stringDouble.substring(0,10);
+				}
+				//if string length is less than ten
+				if(this.stringDouble.length() < 10){
+					//check to see if there is a decimal
+					if(stringDouble.contains(".")){
+						//find index of decimal
+						int decimalIndex = stringDouble.indexOf(".");
+						//get string and double values of the numbers after the decimal point
+						String stringNumAfterDecimal = stringDouble.substring(decimalIndex);
+						double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
+						// value after decimal is not zero
+						if(numbersAfterDecimal != 0.0 && stringNumAfterDecimal.contains("0")){
+							//use reverse for loop to check for a character that is not zero
+							for(int i = stringDouble.length() - 1; i > 0; i--){
+								//if it finds a number that is not zero, return substring
+								if(stringDouble.charAt(i) != '0'){
+									stringDouble = stringDouble.substring(0, i + 1);
+									addSpaces();
+									return stringDouble;
+								}
+							}
+						}
+						if(numbersAfterDecimal == 0.0){
+							stringDouble = stringDouble.substring(0, decimalIndex + 2);
+						}
+					}else{
+						stringDouble += ".0";
+					}
+					addSpaces();
+				}
+					return this.stringDouble;
+	}
+	
+	public void addSpaces(){
+		int difference = 10 - this.stringDouble.length();
+		for(int k = 0; k < difference; k++){
+			stringDouble += " ";
+		}
+	}
+
+	@Override
+	public String fullCellText() {
+		return doubleCellValue;
+	}
+	
+	public void setCellText(String value){
+		this.doubleCellValue = value;
+	}
+	 
+	public String getCellText(){
+		return doubleCellValue;
+	}
+	
+	public abstract double getDoubleValue();
+
+}
