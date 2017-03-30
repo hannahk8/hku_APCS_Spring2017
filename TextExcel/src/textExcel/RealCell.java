@@ -18,10 +18,18 @@ public abstract class RealCell implements Cell {
 		}
 		if(abbreviatedValue.length() < 10){
 			if(abbreviatedValue.contains(".")){
-				
 				int decimalIndex = abbreviatedValue.indexOf(".");
-				String stringNumAfterDecimal = abbreviatedValue.substring(decimalIndex, abbreviatedValue.toString().length() - 1);
-				double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
+				System.out.println(decimalIndex);
+
+				String stringNumAfterDecimal = abbreviatedValue.substring(decimalIndex, abbreviatedValue.toString().length());
+				System.out.println(stringNumAfterDecimal);
+				
+				if(abbreviatedValue.contains("%")){
+					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex) + "%";
+				}else{
+					double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
+				}
+				//double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
 				
 				if(numbersAfterDecimal != 0.0 && stringNumAfterDecimal.contains("0") && !abbreviatedValue.contains("%")){
 					for(int i = abbreviatedValue.length() - 1; i > 0; i--){
@@ -32,6 +40,10 @@ public abstract class RealCell implements Cell {
 							return abbreviatedValue;
 						}
 					}
+				}
+				
+				if(abbreviatedValue.contains("%")){
+					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex) + "%";
 				}
 				if(numbersAfterDecimal == 0.0){
 					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex + 2);
