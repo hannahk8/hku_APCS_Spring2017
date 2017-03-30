@@ -4,45 +4,16 @@ package textExcel;
 
 public class PercentCell extends RealCell {
 	
-	private String percentValue;
-	private String storedValue;
+	private String storedValue = "";
 
 	public PercentCell(String percent){
-		this.percentValue = percent;
-		this.storedValue = percent;
-	}
-	
-	public String abbreviatedCellText(){
-		//take out percent sign
-		percentValue = percentValue.substring(0, percentValue.length());
-		//if has decimal, get index of decimal and substring the string from 0 to decimal index.
-		if(percentValue.contains(".")){
-			int decimalIndex = percentValue.indexOf(".");
-			this.percentValue = percentValue.substring(0, decimalIndex);	
-		}
-		// if percent length is more than ten spaces, substring from 0 to 10
-		if(percentValue.length() > 10){
-			return percentValue.substring(0, 10);
-		}else{
-			int difference = 10 - this.percentValue.length();
-			percentValue += "%";
-			for(int k = 0; k < difference; k++){
-				percentValue += " ";
-			}
-			
-			return percentValue.substring(0,percentValue.length() -1);
-		}
-		
-	}
-	
-	public String fullCellText(){
-		storedValue = storedValue.substring(0, storedValue.length() - 1);
-		//divide by 100 to get decimal form of percent
-		return Double.toString(getDoubleValue()/100);
+		setCellText(percent);
+		storedValue = getCellText();
 	}
 
 	public double getDoubleValue(){
-		double doubleValue = Double.parseDouble(this.storedValue);
-		return doubleValue;
+		storedValue = storedValue.substring(0, storedValue.length() - 1);
+		double doubleValue = Double.parseDouble(storedValue);
+		return doubleValue/100;
 	}
 }
