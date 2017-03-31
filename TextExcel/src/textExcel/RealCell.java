@@ -7,10 +7,15 @@ public abstract class RealCell implements Cell {
 	private String doubleCellValue;
 	
 	@Override
-	public String abbreviatedCellText() {
-		if(doubleCellValue.contains(")")){
-			abbreviatedValue = Double.toString(getDoubleValue());
+public String abbreviatedCellText() {
+	if(doubleCellValue.contains(")")){
+		abbreviatedValue = Double.toString(getDoubleValue());
+		if(abbreviatedValue.length() < 10){
+			addSpaces();
+		}else{
+			return abbreviatedValue.substring(0, 10);
 		}
+	}else{
 		abbreviatedValue = getCellText();
 		
 		if(abbreviatedValue.length() > 10){
@@ -23,11 +28,13 @@ public abstract class RealCell implements Cell {
 
 				String stringNumAfterDecimal = abbreviatedValue.substring(decimalIndex, abbreviatedValue.toString().length());
 				System.out.println(stringNumAfterDecimal);
+				double numbersAfterDecimal = 0;
 				
 				if(abbreviatedValue.contains("%")){
+					System.out.println(stringNumAfterDecimal);
 					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex) + "%";
 				}else{
-					double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
+					numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
 				}
 				//double numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
 				
@@ -44,16 +51,16 @@ public abstract class RealCell implements Cell {
 				
 				if(abbreviatedValue.contains("%")){
 					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex) + "%";
-				}
-				if(numbersAfterDecimal == 0.0){
+				} else if(numbersAfterDecimal == 0.0){
 					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex + 2);
 				}
 			}else if(!abbreviatedValue.contains("%")){
 				abbreviatedValue += ".0";
 			}
-			addSpaces();
 		}
-		return abbreviatedValue;
+		addSpaces();
+	}
+	return abbreviatedValue;
 }
 	
 	public void addSpaces(){
@@ -67,6 +74,9 @@ public abstract class RealCell implements Cell {
 	public String fullCellText() {
 		if(!doubleCellValue.contains(".") && !doubleCellValue.contains("%")){
 			return doubleCellValue.substring(0, doubleCellValue.length());
+		}
+		if(doubleCellValue.contains("(")){
+			return doubleCellValue;
 		}
 		return Double.toString(getDoubleValue());
 	}

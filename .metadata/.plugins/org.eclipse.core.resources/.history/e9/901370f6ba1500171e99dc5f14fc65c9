@@ -1,0 +1,64 @@
+package textExcel;
+import java.util.Arrays;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+public class FormulaCell extends RealCell{
+	private String formulaValue;
+	String calculatedValue;
+	Cell[][] spreadsheetArray;
+
+
+	public FormulaCell(String formula, Cell[][] array) {
+		setCellText(formula);
+		this.formulaValue = getCellText();
+		spreadsheetArray = array;
+	}
+	
+	public double getDoubleValue(){
+		String[] formulaArrayValues = formulaValue.split(" ");
+		double nextNum = 0.0;
+		double value = 0.0;
+		
+		
+		if(formulaArrayValues.length > 3){
+			for(int i = 1; i < formulaArrayValues.length - 2; i += 2){
+				if(formulaArrayValues[i].charAt(0) >= 'A' || formulaArrayValues[i].charAt(0) <= 'L'){
+					SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[i]);
+					formulaArrayValues[i] = spreadsheetArray[location.getRow()][location.getCol()].abbreviatedCellText();
+				}
+				
+				
+				
+				
+				
+				
+				
+					
+				double currentNum = Double.parseDouble(formulaArrayValues[i]);
+				nextNum = Double.parseDouble(formulaArrayValues[i + 2]);
+				if(formulaArrayValues[i + 1].equals("+")){
+					value = currentNum + nextNum;
+				}else if(formulaArrayValues[i + 1].equals("-")){
+					
+					value = currentNum - nextNum;
+					
+				}else if(formulaArrayValues[i + 1].equals("*")){
+					
+					value = currentNum * nextNum;
+					
+				}else if(formulaArrayValues[i + 1].equals("/")){
+					value = currentNum / nextNum;
+				}
+				formulaArrayValues[i + 2] = Double.toString(value);
+			}
+		}else{
+			if(formulaArrayValues[1].charAt(0) >= 'A' || formulaArrayValues[1].charAt(0) <= 'L'){
+				SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[1]);
+				formulaArrayValues[1] = spreadsheetArray[location.getRow()][location.getCol()].abbreviatedCellText();
+			}
+			return Double.parseDouble(formulaArrayValues[1]);
+		}
+		return value;
+	}
+}

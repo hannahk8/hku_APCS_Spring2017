@@ -109,7 +109,7 @@ public class Spreadsheet implements Grid
 			cellArray[row][col] = new PercentCell(commandValue);
 		//if contains parenthesis, make formula cell
 		}else if(commandValue.contains("(")){
-			cellArray[row][col] = new FormulaCell(commandValue);
+			cellArray[row][col] = new FormulaCell(commandValue, cellArray);
 		//if none of the above tests pass it is a value cell
 		}else{
 			cellArray[row][col] = new ValueCell(commandValue);
@@ -228,7 +228,7 @@ public class Spreadsheet implements Grid
 			}else if(cellType.equals("PercentCell")){
 				cellArray[row][col] = new PercentCell(cellValue);
 			}else if(cellType.equals("FormulaCell")){
-				cellArray[row][col] = new FormulaCell(cellValue);
+				cellArray[row][col] = new FormulaCell(cellValue, cellArray);
 			}else if(cellType.equals("ValueCell")){
 				cellArray[row][col] = new ValueCell(cellValue);
 			}
