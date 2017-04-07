@@ -1,3 +1,4 @@
+//Hannah Ku 3/19/17 2nd Period CompSci
 /**
  * 
  */
@@ -34,6 +35,9 @@ public class TextCell implements Cell {
 
 	@Override
 	public String fullCellText() {
+		if(cellText.contains("\"")){
+			return this.cellText;
+		}
 		return "\"" + this.cellText.substring(0, cellTextLength) + "\"";
 	}
 

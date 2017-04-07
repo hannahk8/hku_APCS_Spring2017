@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-// Update this file with your own code.
-
 public class TextExcel
 {
 

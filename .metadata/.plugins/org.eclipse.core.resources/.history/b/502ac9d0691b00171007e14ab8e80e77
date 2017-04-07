@@ -1,0 +1,19 @@
+//Hannah Ku 3/19/17 2nd Period CompSci
+//this is the PercentCell class that stores a percent value.
+package textExcel;
+
+public class PercentCell extends RealCell {
+	
+	private String storedValue = "";
+
+	public PercentCell(String percent){
+		setCellText(percent);
+		storedValue = getCellText();
+	}
+
+	public double getDoubleValue(){
+		storedValue = storedValue.substring(0, storedValue.length() - 1);
+		double doubleValue = Double.parseDouble(storedValue);
+		return Math.round(doubleValue/100.0);
+	}
+}

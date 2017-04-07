@@ -1,0 +1,9 @@
+package textExcel;
+
+public class Asdf {
+
+	public Asdf() {
+		System.out.println(123/100);
+	}
+
+}

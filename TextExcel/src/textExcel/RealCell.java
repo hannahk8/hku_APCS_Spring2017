@@ -24,14 +24,11 @@ public String abbreviatedCellText() {
 		if(abbreviatedValue.length() < 10){
 			if(abbreviatedValue.contains(".")){
 				int decimalIndex = abbreviatedValue.indexOf(".");
-				System.out.println(decimalIndex);
 
 				String stringNumAfterDecimal = abbreviatedValue.substring(decimalIndex, abbreviatedValue.toString().length());
-				System.out.println(stringNumAfterDecimal);
 				double numbersAfterDecimal = 0;
 				
 				if(abbreviatedValue.contains("%")){
-					System.out.println(stringNumAfterDecimal);
 					abbreviatedValue = abbreviatedValue.substring(0, decimalIndex) + "%";
 				}else{
 					numbersAfterDecimal = Double.parseDouble(stringNumAfterDecimal);
@@ -72,13 +69,13 @@ public String abbreviatedCellText() {
 
 	@Override
 	public String fullCellText() {
-		if(!doubleCellValue.contains(".") && !doubleCellValue.contains("%")){
-			return doubleCellValue.substring(0, doubleCellValue.length());
-		}
 		if(doubleCellValue.contains("(")){
 			return doubleCellValue;
 		}
-		return Double.toString(getDoubleValue());
+		if(!doubleCellValue.contains(".") && !doubleCellValue.contains("%")){
+			return doubleCellValue.substring(0, doubleCellValue.length());
+		}
+		return getDoubleValue() + "";
 	}
 	
 	public void setCellText(String value){

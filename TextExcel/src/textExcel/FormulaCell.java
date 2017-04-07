@@ -1,3 +1,4 @@
+//Hannah Ku 4/1/17 2nd Period CompSci
 package textExcel;
 import java.util.Arrays;
 
@@ -24,26 +25,94 @@ public class FormulaCell extends RealCell{
 		if(formulaArrayValues.length > 3){
 			for(int i = 1; i < formulaArrayValues.length - 2; i += 2){
 				
-				//if(formulaArrayValues[1].equals("avg") || formulaArrayValues[1].equals("sum")){
-					
-				//}
-				
-				
-				
-				
-				
-				
-				/*if(formulaArrayValues[i].toUpperCase().charAt(0) >= 'A' || formulaArrayValues[i].toUpperCase().charAt(0) <= 'L'){
-					SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[i]);
-					formulaArrayValues[i] = spreadsheetArray[location.getRow()][location.getCol()].abbreviatedCellText();
-				}
-				if(formulaArrayValues[i + 2].toUpperCase().charAt(0) >= 'A' || formulaArrayValues[i + 2].toUpperCase().charAt(0) <= 'L'){
-					SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[i + 2]);
-					formulaArrayValues[i + 2] = spreadsheetArray[location.getRow()][location.getCol()].abbreviatedCellText();
-				}
-				System.out.println(formulaArrayValues[1]);
+				if(formulaArrayValues[1].toUpperCase().equals("AVG") || 
+						formulaArrayValues[1].toUpperCase().equals("SUM")){
 
-				System.out.println(formulaArrayValues[3]);*/
+					String startCell = formulaArrayValues[2].substring(0, formulaArrayValues[2].indexOf("-")).toUpperCase();
+					String endCell = formulaArrayValues[2].substring(formulaArrayValues[2].indexOf("-") + 1).toUpperCase();
+					char startCol = startCell.toUpperCase().charAt(0);
+					char endCol = endCell.toUpperCase().charAt(0);
+					double sum = 0.0;
+					int startRow;
+					int endRow;
+					if(startCell.length() == 3){
+						startRow = Integer.parseInt(startCell.substring(1));
+					}else{
+						startRow = (int)startCell.charAt(1) - 48;
+					}
+					
+					if(endCell.length() == 3){
+						endRow = Integer.parseInt(endCell.substring(1));
+					}else{
+						endRow = (int)endCell.charAt(1) - 48;
+
+					}
+					
+					if(startCell.equals(endCell)){
+						SpreadsheetLocation cellLocation = new SpreadsheetLocation(startCell);
+						RealCell realCellValue = (RealCell)spreadsheetArray[cellLocation.getRow()][cellLocation.getCol()];
+						return realCellValue.getDoubleValue(); 
+					}else if(startCol == endCol){
+						for(int k = startRow; k <= endRow; k++){
+							SpreadsheetLocation cellLocation = new SpreadsheetLocation(startCol + Integer.toString(k));
+							RealCell realCellValue = (RealCell)spreadsheetArray[cellLocation.getRow()][cellLocation.getCol()];
+							sum += realCellValue.getDoubleValue(); 
+							
+						}
+						if(formulaArrayValues[1].toUpperCase().equals("AVG")){
+							return sum/(endRow - startRow + 1);
+						}else{
+							return sum;
+						}
+						
+					}else if(startRow == endRow){
+						for(int k = startCol; k < endCol + 1; k++){
+							
+							SpreadsheetLocation cellLocation = new SpreadsheetLocation((char)(k) + Integer.toString(startRow));
+							RealCell realCellValue = (RealCell)spreadsheetArray[cellLocation.getRow()][cellLocation.getCol()];
+							sum += realCellValue.getDoubleValue(); 
+							
+							
+						}
+						if(formulaArrayValues[1].toUpperCase().equals("AVG")){
+							return sum/(endCol - startCol + 1);
+						}else{
+							return sum;
+						}
+					}else{
+						for(int k = startRow; k <= endRow; k++){
+							for(int j = startCol; j <= endCol; j++){
+								SpreadsheetLocation cellLocation = new SpreadsheetLocation((char)(j) + Integer.toString(k));
+								RealCell realCellValue = (RealCell)spreadsheetArray[cellLocation.getRow()][cellLocation.getCol()];
+								sum += realCellValue.getDoubleValue();
+							}
+						}
+						if(formulaArrayValues[1].toUpperCase().equals("AVG")){
+							int numValues = (endRow - startRow + 1 ) * (endCol - startCol + 1);
+							return sum/numValues;
+						}else{
+							return sum;
+						}
+					}
+				}
+				
+				
+				if(formulaArrayValues[i].toUpperCase().charAt(0) >= 'A' &&
+				  formulaArrayValues[i].toUpperCase().charAt(0) <= 'L' &&
+				  !formulaArrayValues[i].toUpperCase().equals("SUM") && 
+				  !formulaArrayValues[i].toUpperCase().equals("AVG")){
+					SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[i]);
+					RealCell realCellValue = (RealCell)spreadsheetArray[location.getRow()][location.getCol()];
+					formulaArrayValues[i] = Double.toString(realCellValue.getDoubleValue());
+				}
+				if(formulaArrayValues[i + 2].toUpperCase().charAt(0) >= 'A' &&
+						  formulaArrayValues[i + 2].toUpperCase().charAt(0) <= 'L' &&
+						  !formulaArrayValues[i + 2].toUpperCase().equals("SUM") && 
+						  !formulaArrayValues[i + 2].toUpperCase().equals("AVG")){
+					SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[i + 2]);
+					RealCell realCellValue = (RealCell)spreadsheetArray[location.getRow()][location.getCol()];
+					formulaArrayValues[i + 2] = Double.toString(realCellValue.getDoubleValue());
+				}
 				
 					
 				double currentNum = Double.parseDouble(formulaArrayValues[i]);
@@ -64,10 +133,11 @@ public class FormulaCell extends RealCell{
 				formulaArrayValues[i + 2] = Double.toString(value);
 			}
 		}else{
-			/*if(formulaArrayValues[1].charAt(0) >= 'A' || formulaArrayValues[1].charAt(0) <= 'L'){
+			if(formulaArrayValues[1].charAt(0) >= 'A' && formulaArrayValues[1].charAt(0) <= 'L'){
 				SpreadsheetLocation location = new SpreadsheetLocation(formulaArrayValues[1]);
-				formulaArrayValues[1] = spreadsheetArray[location.getRow()][location.getCol()].abbreviatedCellText();
-			}*/
+				RealCell realCellValue = (RealCell)spreadsheetArray[location.getRow()][location.getCol()];
+				formulaArrayValues[1] = Double.toString(realCellValue.getDoubleValue());
+			}
 			return Double.parseDouble(formulaArrayValues[1]);
 		}
 		return value;
